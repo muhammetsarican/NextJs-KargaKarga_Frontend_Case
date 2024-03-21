@@ -1,3 +1,6 @@
+import "./globals.css";
+import { UserProvider } from "../components/providers/userProvider";
+
 export default function RootLayout({
   children,
 }: {
@@ -5,8 +8,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className="font-nunito">
+        <UserProvider>
+          {children}
+        </UserProvider>
       </body>
     </html>
   )
