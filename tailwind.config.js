@@ -8,10 +8,16 @@ module.exports = {
     extend: {
       container:{
         center:true
+      },
+      colors:{
+        "logo":"#145389",
+        "short-sidebar": "#363F72"
       }
     },
     fontFamily:{
-      'nunito': 'Nunito, sans-serif'
+      'poppins': 'Poppins, sans-serif',
+      'futura':'Futura, sans-serif',
+      'josefin': 'josefin-sans, sans-serif'
     }
   },
   plugins: [],

@@ -8,7 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-nunito">
+      <body className="font-poppins h-dvh">
         <UserProvider>
           {children}
         </UserProvider>

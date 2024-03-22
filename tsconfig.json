@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/assets/*":["assets/*"]
+    },
     "lib": [
       "dom",
       "dom.iterable",
