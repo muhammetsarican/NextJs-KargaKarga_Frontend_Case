@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss')
+
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -20,6 +24,15 @@ module.exports = {
       'josefin': 'josefin-sans, sans-serif'
     }
   },
-  plugins: [],
+  plugins: [
+    plugin(function({addComponents}){
+      addComponents({
+        '.all-center':{
+          justifyItems:'center',
+          alignItems:'center'
+        }
+      })
+    })
+  ],
 }
 

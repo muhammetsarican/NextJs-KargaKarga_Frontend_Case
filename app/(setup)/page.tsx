@@ -1,11 +1,10 @@
 'use client'
 
-import { useContext } from "react";
-import { UserContext } from "../../components/providers/userProvider";
 import { redirect } from "next/navigation";
+import { useUser } from "@/components/providers/userProvider";
 
 const Page = () => {
-    const {isUserLogin}=useContext(UserContext);
+    const {isUserLogin}=useUser();
     if(!isUserLogin) redirect('/sign-in') 
     else redirect('/projects');
 }

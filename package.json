@@ -15,9 +15,11 @@
   "dependencies": {
     "@tanstack/react-query": "^5.28.4",
     "axios": "^1.6.8",
+    "lucide-react": "^0.363.0",
     "next": "^14.1.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-scrollable-feed": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "20.11.30",

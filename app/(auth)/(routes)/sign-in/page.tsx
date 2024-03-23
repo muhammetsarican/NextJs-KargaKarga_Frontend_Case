@@ -1,13 +1,13 @@
 "use client"
 
 import axios from "axios";
-import { useContext, useState } from "react"
-import { UserContext } from "../../../../components/providers/userProvider";
+import { useState } from "react"
+import { useUser } from "@/components/providers/userProvider";
 import { useRouter } from "next/navigation";
 
 const SignIn=()=>{
     const router= useRouter();
-    const {isUserLogin, setIsUserLogin, setToken}=useContext(UserContext);
+    const {user, setIsUserLogin, setUser}=useUser();
 
     const [email, setEmail]=useState("");
     const [password, setPassword]=useState("");
@@ -27,18 +27,19 @@ const SignIn=()=>{
         };
 
         console.log(postData);
-        axios.post("https://api.management.parse25proje.link/api/auth/login", postData)
+        axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/login`, postData)
         .then(postResponse=>{
             const userData=postResponse.data.data;
             console.log(userData);
             setIsUserLogin(true);
-            setToken(userData.token);
+            setUser(userData);
+            localStorage.setItem("user",userData);
             router.push("/projects");
         })
         .catch(error=>console.log(error.message));
     }
     return (
-        <div className="flex justify-center items-center text-3xl">
+        <div className="flex justify-center items-center text-3xl h-dvh">
             <div className="container flex gap-10 flex-col text-center bg-white rounded-3xl w-[25%] p-10 shadow-2xl">
                 <h1 className="text-4xl font-bold">Login</h1>
                 <form className="flex flex-col gap-5 justify-center items-center" onSubmit={handleSubmit}>
