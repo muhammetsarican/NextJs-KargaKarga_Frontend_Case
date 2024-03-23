@@ -6,6 +6,7 @@ import { useUser } from "@/components/providers/userProvider";
 import { useRouter } from "next/navigation";
 
 const SignIn=()=>{
+    console.log(localStorage.getItem("user"));
     const router= useRouter();
     const {user, setIsUserLogin, setUser}=useUser();
 
@@ -26,14 +27,12 @@ const SignIn=()=>{
             password
         };
 
-        console.log(postData);
         axios.post(`${process.env.NEXT_PUBLIC_API_URL}auth/login`, postData)
         .then(postResponse=>{
             const userData=postResponse.data.data;
-            console.log(userData);
             setIsUserLogin(true);
             setUser(userData);
-            localStorage.setItem("user",userData);
+            localStorage.setItem("user",JSON.stringify(userData));
             router.push("/projects");
         })
         .catch(error=>console.log(error.message));

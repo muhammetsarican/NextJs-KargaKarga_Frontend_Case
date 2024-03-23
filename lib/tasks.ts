@@ -1,14 +1,22 @@
 import { useUser } from "@/components/providers/userProvider";
-import CustomAxios from "./customAxios";
+import axios from "axios";
+import { useState } from "react";
 
-const Tasks=()=>{
-    const {user}=useUser();
+const Tasks = () => {
+    const { user } = useUser();
+    const [tasks, setTasks]=useState(null);
 
-    const userToken=user.token;
+    if (!user) return null;
 
-    if(!userToken) return null;
+    const config = {
+        headers: { Authorization: `Bearer ${user.token}` }
+    };
 
-    const tasks=CustomAxios();
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}commons/flags`,config)
+    .then(getResponse=>{
+        console.log(getResponse);
+        setTasks(getResponse.data);
+    })
 
     return tasks;
 }

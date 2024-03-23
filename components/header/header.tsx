@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <div className="flex justify-between items-center px-[24px] py-3 bg-white border-b">
             {/* logo */}
-            <div className="text-logo font-josefin font-black text-lg">
+            <div className="text-logo  font-bold text-xl">
                 <p>kargakarga</p>
             </div>
             {/* right part */}

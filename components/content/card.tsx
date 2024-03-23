@@ -1,10 +1,14 @@
 import EmptyCard from "@/assets/images/content/cart/emptyCard";
-import Tasks from "@/lib/tasks";
+// import Tasks from "@/lib/tasks";
 import { CalendarDays, CircleEllipsis, Diamond, Flag, Plus } from "lucide-react";
+import { useEffect } from "react";
 
 const BoardCard = () => {
-    const taskList = Tasks();
-    console.log("tasklist:", taskList);
+    const taskList=null;
+    useEffect(()=>{
+        // const taskList = Tasks();
+        // console.log("tasklist:", taskList);
+    },[])
     return (
         <div className="rounded-2xl bg-white flex gap-1 flex-col h-full w-fit m-5 border">
             <div className="title border-b flex justify-between items-center p-5">

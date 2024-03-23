@@ -8,7 +8,7 @@ const LongSidebar = () => {
     const {user} = useUser();
 
     return (
-        <div className="flex flex-col justify-between bg-white p-5">
+        <div className="flex flex-col justify-between bg-white p-5 h-full">
             <div className="top flex gap-3 flex-col">
                 <p id="title">Projeler</p>
                 {/* dragable part */}
