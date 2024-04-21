@@ -6,9 +6,9 @@ import { useUser } from "@/components/providers/userProvider";
 import { useRouter } from "next/navigation";
 
 const SignIn=()=>{
-    console.log(localStorage.getItem("user"));
     const router= useRouter();
     const {user, setIsUserLogin, setUser}=useUser();
+    if(user) router.push("/projects");
 
     const [email, setEmail]=useState("");
     const [password, setPassword]=useState("");

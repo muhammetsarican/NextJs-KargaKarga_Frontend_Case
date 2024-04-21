@@ -17,7 +17,7 @@ const UserContext = createContext<UserContextType>({
 });
 
 const UserProvider = ({ children }) => {
-    const localUser=localStorage.getItem("user");
+    const localUser = localStorage.getItem("user");
     const [isUserLogin, setIsUserLogin] = useState<Boolean>(false);
     const [user, setUser] = useState(JSON.parse(localUser));
 

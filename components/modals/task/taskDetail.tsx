@@ -4,7 +4,8 @@ import MenuItem from "./menuItem";
 import { useState } from "react";
 
 const TaskDetail = () => {
-    const  [isOpen, setIsOpen]=useState(true);
+    const  [isOpen, setIsOpen]=useState(false);
+    
     return (
         <div id="task-detail" className={`${isOpen?"absolute":"hidden"} rounded-lg inset-x-96 inset-y-24 bg-red-100 shadow-[0_0_0_500px_rgba(0,0,0,0.7)] overflow-hidden`}>
             <div className="bg-white rounded-lg border h-full">
