@@ -8,12 +8,12 @@ import { useUser } from "@/components/providers/userProvider";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const {user}=useUser();
-  const router=useRouter();
+  const { user } = useUser();
+  const router = useRouter();
 
-  if(!user) router.push("/");
+  if (!user) router.push("/");
   return (
-    <div className="bg-[#F3F6FD] h-full">
+    <div className="bg-body h-full">
       <Header />
       <div className="flex h-full">
         <ShortSidebar />

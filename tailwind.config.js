@@ -10,26 +10,29 @@ module.exports = {
   ],
   theme: {
     extend: {
-      container:{
-        center:true
+      container: {
+        center: true
       },
-      colors:{
-        "logo":"#145389",
-        "short-sidebar": "#363F72"
+      colors: {
+        "logo": "#145389",
+        "short-sidebar": "#363F72",
+        "body": "#F3F6FD",
+        // text colors
+        "content-header": "#145389"
       }
     },
-    fontFamily:{
+    fontFamily: {
       'poppins': 'Poppins, sans-serif',
-      'futura':'Futura, sans-serif',
+      'futura': 'Futura, sans-serif',
       'josefin': 'josefin-sans, sans-serif'
     }
   },
   plugins: [
-    plugin(function({addComponents}){
+    plugin(function ({ addComponents }) {
       addComponents({
-        '.all-center':{
-          justifyItems:'center',
-          alignItems:'center'
+        '.all-center': {
+          justifyItems: 'center',
+          alignItems: 'center'
         }
       })
     })
