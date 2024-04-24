@@ -3,9 +3,12 @@ import TaskBox from "./tasks/taskBox";
 import { memo, useEffect, useState } from "react";
 import EmptyCard from "@/assets/images/content/card/emptyCard";
 import { useData } from "../providers/dataProvider";
+import createNewTask from "@/lib/createNewTask";
+import { useUser } from "../providers/userProvider";
 
 const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
     const { flags } = useData();
+    const { user } = useUser();
 
     const [newTask, setNewTask] = useState({
         name: "",
@@ -21,7 +24,7 @@ const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
     // console.log(board, tasks, flags)
 
     const saveNewTask = () => {
-        console.log("saved data: ", newTask);
+        createNewTask(newTask, user.token);
     }
 
     return (
@@ -29,7 +32,7 @@ const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
             <div className="title border-b flex justify-between items-center p-5">
                 <div className="left-side flex gap-2 items-center">
                     <p className="uppercase ">{board.name}</p>
-                    <span className="flex justify-center items-center text-sm font-semibold bg-blue-100 text-blue-500 rounded-full border border-blue-300 w-5 h-5">3</span>
+                    <span className="flex justify-center items-center text-sm font-semibold bg-blue-100 text-blue-500 rounded-full border border-blue-300 w-5 h-5">{tasks ? tasks.length : "0"}</span>
                 </div>
                 <div className="right-side flex gap-2 items-center">
                     <Plus className="text-gray-400" />
@@ -53,23 +56,23 @@ const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
                                     <label htmlFor="">Select a flag:</label>
                                     <div id="flag-checkboxes" className="flex justify-around w-2/3 py-3">
                                         <div className={`flex justify-center items-center relative bg-gray-100 rounded-lg border border-gray-200 ${newTask.flagId == 1 ? "bg-orange-100" : ""}`}>
-                                            <input type="radio" name="flag" id="" value="1" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: event.target.value })} />
+                                            <input type="radio" name="flag" id="" value="1" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: parseInt(event.target.value) })} />
                                             <Flag color={flags[0].color} className="absolute inset-x-auto inset-y-auto z-0 w-4 h-4" />
                                         </div>
                                         <div className={`flex justify-center items-center relative bg-gray-100 rounded-lg border border-gray-200 ${newTask.flagId == 2 ? "bg-orange-100" : ""}`}>
-                                            <input type="radio" name="flag" id="" value="2" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: event.target.value })} />
+                                            <input type="radio" name="flag" id="" value="2" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: parseInt(event.target.value) })} />
                                             <Flag color={flags[1].color} className="absolute inset-x-auto inset-y-auto z-0 w-4 h-4" />
                                         </div>
                                         <div className={`flex justify-center items-center relative bg-gray-100 rounded-lg border border-gray-200 ${newTask.flagId == 3 ? "bg-orange-100" : ""}`}>
-                                            <input type="radio" name="flag" id="" value="3" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: event.target.value })} />
+                                            <input type="radio" name="flag" id="" value="3" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: parseInt(event.target.value) })} />
                                             <Flag color={flags[2].color} className="absolute inset-x-auto inset-y-auto z-0 w-4 h-4" />
                                         </div>
                                         <div className={`flex justify-center items-center relative bg-gray-100 rounded-lg border border-gray-200 ${newTask.flagId == 4 ? "bg-orange-100" : ""}`}>
-                                            <input type="radio" name="flag" id="" value="4" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: event.target.value })} />
+                                            <input type="radio" name="flag" id="" value="4" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: parseInt(event.target.value) })} />
                                             <Flag color={flags[3].color} className="absolute inset-x-auto inset-y-auto z-0 w-4 h-4" />
                                         </div>
                                         <div className={`flex justify-center items-center relative bg-gray-100 rounded-lg border border-gray-200 ${newTask.flagId == 5 ? "bg-orange-100" : ""}`}>
-                                            <input type="radio" name="flag" id="" value="5" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: event.target.value })} />
+                                            <input type="radio" name="flag" id="" value="5" className="appearance-none w-7 h-7 bg-transparent rounded-lg z-10" onClick={(event) => setNewTask({ ...newTask, flagId: parseInt(event.target.value) })} />
                                             <Flag color={flags[4].color} className="absolute inset-x-auto inset-y-auto z-0 w-4 h-4" />
                                         </div>
                                     </div>

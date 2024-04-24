@@ -1,13 +1,21 @@
 import { CalendarDays, ChevronDown, ChevronRight, ChevronUp, Circle, Copy, Diamond, Ellipsis, Flag, Home, Link, ListFilter, Move, Paperclip, Plus, Search, SquareArrowOutUpRight, Star, X } from "lucide-react"
 import ActivityCell from "./activityNotificationCell";
 import MenuItem from "./menuItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const TaskDetail = () => {
-    const  [isOpen, setIsOpen]=useState(false);
-    
+const TaskDetail = ({ props }) => {
+    const [isCloseButtonClicked, setIsCloseButtonClicked] = useState(false);
+
+    useEffect(() => {
+        if (isCloseButtonClicked) props.closeDetail();
+    }, [isCloseButtonClicked]);
+
+    const handleClick = () => {
+        setIsCloseButtonClicked(true);
+    }
+
     return (
-        <div id="task-detail" className={`${isOpen?"absolute":"hidden"} rounded-lg inset-x-96 inset-y-24 bg-red-100 shadow-[0_0_0_500px_rgba(0,0,0,0.7)] overflow-hidden`}>
+        <div id="task-detail" className={`absolute rounded-lg inset-x-96 inset-y-24 bg-red-100 shadow-[0_0_0_500px_rgba(0,0,0,0.7)] overflow-scroll z-30`}>
             <div className="bg-white rounded-lg border h-full">
                 <div id="header" className="flex justify-between items-center border-b p-5">
                     <div className="left flex gap-3 items-center">
@@ -26,7 +34,7 @@ const TaskDetail = () => {
                         <Ellipsis className="text-gray-500 w-5" />
                         <SquareArrowOutUpRight className="text-gray-500 w-5" />
                         <Star className="text-gray-500 w-5" />
-                        <X className="text-gray-500 flex items-center justify-center w-7 h-7 p-1 rounded-full hover:bg-red-500 hover:text-white" onClick={()=>setIsOpen(false)} />
+                        <X className="text-gray-500 flex items-center justify-center w-7 h-7 p-1 rounded-full hover:bg-red-500 hover:text-white" onClick={handleClick} />
                     </div>
                 </div>
                 <div id="body" className="flex h-full bg-white overflow-hidden">
@@ -35,17 +43,18 @@ const TaskDetail = () => {
                             <div className="left">
                                 <div className="flex gap-3 items-center">
                                     <Circle />
-                                    <p className="font-bold text-xl max-w-[350px] text-gray-700">Bu örnek görevdir. Örnek görevin
+                                    <p className="font-bold text-xl max-w-[350px] text-gray-700">{props.task.name || `Bu örnek görevdir. Örnek görevin
                                         içerigine dair açiklama detail'da
-                                        bulunmaktadır.
+                                        bulunmaktadır.`}
                                     </p>
                                 </div>
-                                <p className="text-gray-500 flex gap-3 p-5" id="id">ID:#435365<span><Copy className="w-4" /></span></p>
+                                <p className="text-gray-500 flex gap-3 p-5" id="id">ID:#{props.task.id}<span>
+                                    <Copy className="w-4" /></span></p>
                             </div>
                             <div className="right">
                                 <div id="date" className="border flex gap-3 p-3 rounded-lg">
                                     <Circle />
-                                    <p>05.02.2024 - 10.02.2024</p>
+                                    <p>{props.task.startDate || "null"} - {props.task.endDate || "null"}</p>
                                 </div>
                             </div>
                         </div>
@@ -62,12 +71,12 @@ const TaskDetail = () => {
                             </div>
                             <div id="priotry" className="flex gap-3 flex-col p-3 items-start">
                                 <p>Priotry</p>
-                                <Flag />
+                                <Flag color={props.flags[props.task.flagId].color} />
                             </div>
                         </div>
                         <div id="task-description" className="text-gray-500 flex gap-3 flex-col">
                             <p className="text-lg text-gray-700">Description</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur tempore repudiandae et. Aliquam, ducimus? Eaque, fugit? Soluta animi ut maiores facilis praesentium maxime, doloremque illo optio suscipit provident natus consectetur.</p>
+                            <p>{props.task.description || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur tempore repudiandae et. Aliquam, ducimus? Eaque, fugit? Soluta animi ut maiores facilis praesentium maxime, doloremque illo optio suscipit provident natus consectetur."}</p>
                         </div>
                         <div id="task-operations" className="border rounded-lg">
                             <div className="title bg-gray-100">
@@ -127,7 +136,18 @@ const TaskDetail = () => {
                                 <ListFilter className="w-5" />
                             </div>
                         </div>
-                        <div id="content" className="px-5 py-3 bg-[#F3F6FD] h-full">
+                        <div id="content" className="px-5 py-3 bg-[#F3F6FD] h-full overflow-scroll">
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
+                            <ActivityCell />
                             <ActivityCell />
                             <ActivityCell />
                             <ActivityCell />

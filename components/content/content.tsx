@@ -1,18 +1,20 @@
 "use client"
 
 import BoardCard from "./boardCard"
-import { Filter } from "lucide-react"
+import { Filter, LoaderCircle } from "lucide-react"
 import TaskDetail from "../modals/task/taskDetail"
 import { useEffect, useState } from "react"
 import { useData } from "../providers/dataProvider"
 
 const Content = () => {
     const { flags, boards } = useData();
+
     const [focusedBoard, setFocusedBoard] = useState(null)
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
-    }, []);
+        setLoading(false);
+    }, [boards]);
 
     const changeFocusedBoard = (boardId) => {
         setFocusedBoard(boardId);
@@ -38,14 +40,18 @@ const Content = () => {
             {/* {flags.length != 0 && flags.map((task) => {
                     console.log(task)
                 })} */}
-            <div id="board" className="w-full h-full flex overflow-scroll">
-                {boards.length != 0 && boards.map((board) => {
+            <div id="board" className={`w-full h-full flex overflow-scroll ${loading && "justify-center items-center"}`}>
+                {loading && (
+                    <div>
+                        <LoaderCircle className="w-24 h-24 text-gray-500 animate-spin" />
+                    </div>
+                )}
+                {!loading && boards.length != 0 && boards.map((board) => {
                     return (
                         < BoardCard board={board} key={board.id} focusedBoard={focusedBoard} changeFocusedBoard={changeFocusedBoard} />
                     )
                 })}
             </div>
-            <TaskDetail />
         </div>
     )
 }
