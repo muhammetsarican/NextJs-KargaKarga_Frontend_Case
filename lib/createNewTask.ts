@@ -1,6 +1,7 @@
 import axios from "axios"
 
-const createNewTask = async (data, token) => {
+const CreateNewTask = async (data, token) => {
+    if (!token) return null;
 
     const config = {
         headers: {
@@ -11,4 +12,4 @@ const createNewTask = async (data, token) => {
         .then(response => console.log(response));
 }
 
-export default createNewTask;
+export default CreateNewTask;

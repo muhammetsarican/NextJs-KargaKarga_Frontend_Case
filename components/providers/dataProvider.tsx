@@ -3,36 +3,35 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
 import { useUser } from "./userProvider";
-
-import Flags from "@/lib/flags";
-import Boards from "@/lib/boards";
+import GetFlags from "@/lib/getFlags";
+import GetBoards from "@/lib/getBoards";
 
 type DataContextType = {
     flags: Array<any>
     boards: Array<any>
-    setFlags(value:any):void
-    setBoards(value:any):void
+    setFlags(value: any): void
+    setBoards(value: any): void
 }
 
 const DataContext = createContext<DataContextType>({
     flags: [],
     boards: [],
-    setFlags:()=>{},
-    setBoards:()=>{}
+    setFlags: () => { },
+    setBoards: () => { }
 });
 
 const DataProvider = ({ children }) => {
-    const [flags, setFlags]=useState([]);
-    const [boards, setBoards]=useState([]);
+    const [flags, setFlags] = useState([]);
+    const [boards, setBoards] = useState([]);
 
-    const {user, isUserLogin} = useUser();
+    const { user, isUserLogin } = useUser();
 
-    useEffect(()=>{
-        (async()=>{
-            setFlags(await Flags(user.token));
-            setBoards(await Boards(user.token))
+    useEffect(() => {
+        (async () => {
+            setFlags(await GetFlags(user.token));
+            setBoards(await GetBoards(user.token))
         })()
-    },[,isUserLogin])
+    }, [, isUserLogin])
 
 
     const values = {

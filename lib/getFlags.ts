@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const Flags = async (token) => {
-    console.log("Flags running...");
-
+const GetFlags = async (token) => {
     if (!token) return null;
 
     const config = {
@@ -16,4 +14,4 @@ const Flags = async (token) => {
     return flags;
 }
 
-export default Flags;
+export default GetFlags;

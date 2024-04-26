@@ -1,12 +1,20 @@
 import { CircleEllipsis, Flag, Plus } from "lucide-react";
 import TaskBox from "./tasks/taskBox";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EmptyCard from "@/assets/images/content/card/emptyCard";
 import { useData } from "../providers/dataProvider";
 import createNewTask from "@/lib/createNewTask";
 import { useUser } from "../providers/userProvider";
+import { Droppable } from "react-drag-and-drop";
+import UpdateTask from "@/lib/updateTask";
 
-const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
+const BoardCard = ({ props }) => {
+    const {
+        board,
+        focusedBoard,
+        changeFocusedBoard,
+        updateBoards
+    } = props;
     const { flags } = useData();
     const { user } = useUser();
 
@@ -18,6 +26,7 @@ const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
         startDate: null,
         endDate: null
     });
+    const [updatedTask, setUpdatedTask] = useState(null);
 
     const tasks = board.tasks.length ? board.tasks : null;
 
@@ -27,8 +36,24 @@ const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
         createNewTask(newTask, user.token);
     }
 
+    const handleDrop = async (data) => {
+        const task = JSON.parse(data.task);
+        setUpdatedTask(task);
+    }
+
+    useEffect(() => {
+        (async () => {
+            if (updatedTask !== null) {
+                const newData = { ...updatedTask, boardId: board.id }
+                await UpdateTask(updatedTask.code, newData, user.token);
+                updateBoards(updatedTask.code, newData);
+                setUpdatedTask(null);
+            };
+        })()
+    }, [updatedTask])
+
     return (
-        <div className="rounded-2xl bg-white flex gap-1 flex-col max-h-2/4 w-fit m-1 border" onMouseEnter={() => { changeFocusedBoard(board.id) }}>
+        <Droppable types={['task']} onDrop={handleDrop} className="rounded-2xl bg-white flex gap-1 flex-col max-h-2/4 w-fit m-1 border" onMouseEnter={() => { changeFocusedBoard(board.id) }}>
             <div className="title border-b flex justify-between items-center p-5">
                 <div className="left-side flex gap-2 items-center">
                     <p className="uppercase ">{board.name}</p>
@@ -92,8 +117,8 @@ const BoardCard = ({ board, focusedBoard, changeFocusedBoard }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </Droppable>
     )
 }
 
-export default memo(BoardCard);
+export default BoardCard;

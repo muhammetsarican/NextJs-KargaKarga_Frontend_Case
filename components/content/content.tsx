@@ -2,12 +2,11 @@
 
 import BoardCard from "./boardCard"
 import { Filter, LoaderCircle } from "lucide-react"
-import TaskDetail from "../modals/task/taskDetail"
 import { useEffect, useState } from "react"
 import { useData } from "../providers/dataProvider"
 
 const Content = () => {
-    const { flags, boards } = useData();
+    const { flags, boards, setBoards } = useData();
 
     const [focusedBoard, setFocusedBoard] = useState(null)
     const [loading, setLoading] = useState(true);
@@ -18,6 +17,20 @@ const Content = () => {
 
     const changeFocusedBoard = (boardId) => {
         setFocusedBoard(boardId);
+    }
+
+    const updateBoards = (oldTaskCode, updatedTask) => {
+        const afterUpdateTheBoards = boards.map((board) => {
+            // INFO: First we filter our task array which data we want to drop
+            let tasks = board.tasks.filter((task) => task.code !== oldTaskCode);
+
+            // INFO: After, we add updated data to our array
+            if (board.id === updatedTask.boardId) {
+                tasks = [...board.tasks, updatedTask];
+            };
+            return { ...board, tasks: tasks };
+        });
+        setBoards(afterUpdateTheBoards);
     }
 
     return (
@@ -47,8 +60,14 @@ const Content = () => {
                     </div>
                 )}
                 {!loading && boards.length != 0 && boards.map((board) => {
+                    const props = {
+                        board,
+                        focusedBoard,
+                        changeFocusedBoard,
+                        updateBoards
+                    }
                     return (
-                        < BoardCard board={board} key={board.id} focusedBoard={focusedBoard} changeFocusedBoard={changeFocusedBoard} />
+                        < BoardCard props={props} key={board.id} />
                     )
                 })}
             </div>
